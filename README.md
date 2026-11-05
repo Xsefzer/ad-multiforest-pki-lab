@@ -555,7 +555,7 @@ certutil -store -user My    # magasin utilisateur
 **Youssef Lahlali** — Étudiant en administration des réseaux et systèmes (420-4RS-HY)
 📍 Québec, Canada · 🔎 À la recherche d'un **stage** en administration systèmes / réseaux / cybersécurité
 
-📧 *ton.courriel@exemple.com* · 💼 *linkedin.com/in/ton-profil*
+📧 *yssflhl.777@proton.me* · 💼 *linkedin.com/(en préparation)*
 
 ---
 
