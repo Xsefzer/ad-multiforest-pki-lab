@@ -75,8 +75,8 @@ J'ai installé AD DS et créé **deux forêts** (`contosoYL.com` et `fabrikam.co
 
 **Validation** avec `nltest /sc_verify:fabrikam.com` : *Trust Verification Status = 0x0 NERR_Success*.
 
-![Authentification sélective et nltest](Screenshots/trust-selective-nltest.png)
-
+![Authentification sélective et nltest](Screenshots/trust-selective.png)
+![nltest](Screenshots/nltest.png)
 | Commande | Rôle |
 |---|---|
 | `nltest /sc_verify:<domaine>` | Vérifie le **secure channel** chiffré entre les deux DC |
