@@ -22,7 +22,7 @@ Ce laboratoire reproduit un scénario d'entreprise : **deux organisations indép
 1. **Interopérabilité entre forêts Active Directory** : forest trust bidirectionnel avec authentification sélective, modèle **AGDLP**, partage de fichiers inter-forêts (NTFS + partage).
 2. **PKI d'entreprise** : **Enterprise Root CA** (AD CS), modèles de certificats, **auto-enrollment par GPO**, Web Enrollment et authentification client sur IIS.
 
-> 📄 Le rapport complet avec toutes les captures est disponible dans le dépôt : [`TP-SRV-WIN-III.pdf`](TP-SRV-WIN-III.pdf). Ce README présente les étapes clés.
+> 📄 Le rapport complet avec toutes les captures est disponible dans le dépôt : [`4RS-TP2-YL-Remise.pdf`](4RS-TP2-YL-Remise.pdf). Ce README présente les étapes clés.
 
 ---
 
