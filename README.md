@@ -66,16 +66,17 @@ J'ai installé AD DS et créé **deux forêts** (`contosoYL.com` et `fabrikam.co
 > Dans AD, **la forêt est la vraie frontière de sécurité**, pas le domaine.
 
 ## 2. Forest trust bidirectionnel avec authentification sélective
-
 1. **DNS** : ajout de l'IP de `DC-Fabrikam` (`192.168.151.11`) comme DNS secondaire de Contoso, sinon le trust échoue dès l'assistant.
 2. **Assistant *New Trust*** : type **Forest trust** (transitif), direction **Two-way**, création des **deux côtés** en une fois.
-3. **Selective authentication** : aucun accès par défaut, chaque serveur doit être autorisé explicitement. Adapté à deux organisations différentes (moindre privilège).
 
 ![Forest trust](Screenshots/trust-forest-type.png)
 
+3. **Selective authentication** : aucun accès par défaut, chaque serveur doit être autorisé explicitement. Adapté à deux organisations différentes (moindre privilège).
+
+![Authentification sélective](Screenshots/trust-selective.png)
+
 **Validation** avec `nltest /sc_verify:fabrikam.com` : *Trust Verification Status = 0x0 NERR_Success*.
 
-![Authentification sélective et nltest](Screenshots/trust-selective.png)
 ![nltest](Screenshots/nltest.png)
 | Commande | Rôle |
 |---|---|
