@@ -71,11 +71,11 @@ J'ai installé AD DS et créé **deux forêts** (`contosoYL.com` et `fabrikam.co
 2. **Assistant *New Trust*** : type **Forest trust** (transitif), direction **Two-way**, création des **deux côtés** en une fois.
 3. **Selective authentication** : aucun accès par défaut, chaque serveur doit être autorisé explicitement. Adapté à deux organisations différentes (moindre privilège).
 
-![Forest trust](screenshots/trust-forest-type.png)
+![Forest trust](Screenshots/trust-forest-type.png)
 
 **Validation** avec `nltest /sc_verify:fabrikam.com` : *Trust Verification Status = 0x0 NERR_Success*.
 
-![Authentification sélective et nltest](screenshots/trust-selective-nltest.png)
+![Authentification sélective et nltest](Screenshots/trust-selective-nltest.png)
 
 | Commande | Rôle |
 |---|---|
@@ -91,7 +91,7 @@ VentesUserF1 → GG-Ventes-Fabrikam → UG-Projets-Communs → DLG-Acces-Modif-P
 
 Les comptes vont dans des **groupes globaux**, les **permissions** sont données à des **groupes locaux de domaine**. On n'attribue jamais de permission directement à un utilisateur. L'ajout d'un groupe d'une autre forêt dans `DLG-Acces-Modif-Projets` n'est possible que grâce au trust.
 
-![Ajout du groupe étranger au DLG](screenshots/agdlp-dlg.png)
+![Ajout du groupe étranger au DLG](Screenshots/agdlp-dlg.png)
 
 ## 4. Partage et permissions NTFS
 
@@ -103,7 +103,7 @@ Dossier `C:\Projets_Communs` partagé (*Domain Users = Read*), puis NTFS : **hé
 | `Administrators` | Full control |
 | `DLG-Acces-Modif-Projets` | **Modify** |
 
-![ACL NTFS finale](screenshots/ntfs-acl-finale.png)
+![ACL NTFS finale](Screenshots/ntfs-acl-finale.png)
 
 ## 5. Tests et dépannage
 
@@ -114,13 +114,13 @@ Depuis le client Fabrikam (`VentesUserF1`) :
 | Lecture | ✅ `test.txt` visible et ouvert |
 | Création / modification / suppression | ❌ Accès refusé |
 
-![Lecture réussie](screenshots/test-lecture.png)
+![Lecture réussie](Screenshots/test-lecture.png)
 
 **Analyse :** le trust et les groupes fonctionnent (la lecture est possible). Les écritures sont refusées, probablement parce que le **partage n'accorde que *Read*** : permissions de partage et NTFS se combinent et **la plus restrictive gagne**. *Correction à valider :* ajouter le DLG au partage avec *Change*, puis se reconnecter pour renouveler le jeton Kerberos.
 
 **Authentification sélective :** il faut accorder **« Allowed to authenticate »** sur l'objet ordinateur du serveur de ressources aux utilisateurs de la forêt approuvée.
 
-![Allowed to authenticate](screenshots/allowed-to-authenticate.png)
+![Allowed to authenticate](Screenshots/allowed-to-authenticate.png)
 
 ---
 
@@ -138,7 +138,7 @@ Serveur joint au domaine avec **IP statique**, rôle **AD CS** (Certification Au
 | Nom | `contoso-Root-CA` |
 | Validité | 5 ans |
 
-![Cryptographie et nom de la CA](screenshots/ca-crypto-nom.png)
+![Cryptographie et nom de la CA](Screenshots/ca-crypto-nom.png)
 
 ## 7. Modèles de certificats et auto-enrollment
 
@@ -151,7 +151,7 @@ J'ai **dupliqué** deux modèles par défaut (jamais modifier les originaux), pu
 
 **GPO `PKI-AutoEnrollment`** : *Certificate Services Client – Auto-Enrollment* activé en **Computer Configuration** et **User Configuration**.
 
-![GPO d'auto-enrollment](screenshots/gpo-autoenrollment.png)
+![GPO d'auto-enrollment](Screenshots/gpo-autoenrollment.png)
 
 ## 8. Tests d'enrollment et dépannage
 
@@ -165,11 +165,11 @@ The EMail name is unavailable and cannot be added to the Subject or Subject Alte
 **Cause :** le modèle exige l'e-mail dans le sujet, mais `TestUserPKI` n'avait aucun e-mail dans AD.
 **Solution :** renseigner l'e-mail de l'utilisateur dans AD (l'autre option était de décocher *Include e-mail name* dans le modèle).
 
-![Failed Requests](screenshots/ca-failed-requests.png)
+![Failed Requests](Screenshots/ca-failed-requests.png)
 
 **Résultat :** les deux certificats sont délivrés (`certutil -store -user My` et `certutil -store My`).
 
-![Certificats utilisateur et ordinateur](screenshots/certutil-store.png)
+![Certificats utilisateur et ordinateur](Screenshots/certutil-store.png)
 
 **Enrollment manuel :** via `https://192.168.151.1/certsrv`, après ajout d'un **binding HTTPS (443)** dans IIS.
 
@@ -178,11 +178,11 @@ The EMail name is unavailable and cannot be added to the Subject or Subject Alte
 - IIS configuré avec **Require SSL** et **Client certificates = Require**.
 - Depuis le client, le navigateur propose le certificat `TestUserPKI@contosoYL.com` : **accès accordé** ✅
 
-![Accès IIS par certificat client](screenshots/iis-client-certificate.png)
+![Accès IIS par certificat client](Screenshots/iis-client-certificate.png)
 
 - **CRL** : le point de distribution est publié dans les détails du certificat et le fichier `contoso-Root-CA.crl` se télécharge (signature sha256RSA).
 
-![CRL](screenshots/crl-info.png)
+![CRL](Screenshots/crl-info.png)
 
 ---
 
